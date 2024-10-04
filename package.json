@@ -1,0 +1,24 @@
+{
+  "name": "sa2-estetica-plus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --no-warnings ./src/server.js",
+    "test": "node --experimental-vm-modules --no-warnings node_modules/jest/bin/jest.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3",
+    "node": "^22.9.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
