@@ -1,4 +1,4 @@
-import { connection, getAgendaBetweenData, getAgendaById, getAgendaByName, getAgendaByNamePart, updateAgendaById, deleteAgendaById } from "../config/database.js";
+import { connection, getAgendaBetweenData, getAllAgenda, getAgendaById, getAgendaByName, getAgendaByNamePart, updateAgendaById, deleteAgendaById } from "../config/database.js";
 
 describe("getAgendaById", () => {
 
@@ -43,7 +43,13 @@ describe("Leitura", () => {
         expect(agendas.nome_pessoa).toMatch(/Eli/);
     });
 
-    test("3 - Verificar se o tempo de resposta é menor que 100ms", async () => {
+    test("3 - Obter os agendamentos entre 02/10/2024 e 10/10/2024", async () => {
+        const agendas = await getAgendaBetweenData();
+
+        expect(agendas).not.toBeUndefined();
+    });
+
+    test("4 - Verificar se o tempo de resposta do getAgendaById é menor que 100ms", async () => {
         const inicio = performance.now();
         await getAgendaById(1);
         const fim = performance.now();
@@ -53,10 +59,14 @@ describe("Leitura", () => {
         expect(duracao).toBeLessThanOrEqual(100);
     });
 
-    test("4 - Obter os agendamentos entre 02/10/2024 e 10/10/2024", async () => {
-        const agendas = await getAgendaBetweenData();
+    test("5 - Verificar se o tempo de resposta getAllAgenda é menor que 200ms", async () => {
+        const inicio = performance.now();
+        await getAllAgenda();
+        const fim = performance.now();
 
-        expect(agendas).not.toBeUndefined();
+        const duracao = fim - inicio;
+
+        expect(duracao).toBeLessThanOrEqual(200);
     });
 });
 
@@ -84,7 +94,7 @@ describe("Deletar", () => {
     });
 
     afterAll(async () => {
-    await connection.query("TRUNCATE TABLE agenda;");
+        await connection.query("TRUNCATE TABLE agenda;");
         await connection.end();
     });
 

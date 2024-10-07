@@ -13,6 +13,11 @@ export async function getAgendaById(id) {
     return rows[0];
 };
 
+export async function getAllAgenda() {
+    const [rows] = await connection.query("SELECT * FROM agenda");
+    return rows[0];
+}
+
 export async function getAgendaByName(name) {
     const [rows] = await connection.query("SELECT * FROM agenda WHERE nome_pessoa = ?;", [name]);
     return rows[0];
